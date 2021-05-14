@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import ReactLoading from 'react-loading';
-// import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 import { Link } from 'react-router-dom';
@@ -18,6 +16,7 @@ import {
 } from './styles';
 
 import Countdown from '../../components/PageCountdown';
+import {useTeam} from '../../hooks/team'
 
 interface ResponseLoginFake {
   email: string;
@@ -29,6 +28,7 @@ const Landing: React.FC = () => {
 
   const [tab, setTab] = useState('');
   const [isLogging, setIsLogging] = useState(false);
+  const {teamOut} = useTeam();
 
   useEffect(() => {
     setTab('home');
@@ -69,12 +69,10 @@ const Landing: React.FC = () => {
             </CountDownContainer>
             <ButtonsContainer>
               <Link to="/subscribe">
-                <ButtonSubscribe enabled>Inscrever-se</ButtonSubscribe>
+                <ButtonSubscribe enabled onClick={teamOut}>Inscrever-se</ButtonSubscribe>
               </Link>
               <Link to="/gamestart">
-                <ButtonSubscribe enabled>
-                  Jogar
-                </ButtonSubscribe>
+                <ButtonSubscribe enabled onClick={teamOut}>Entrar</ButtonSubscribe>
               </Link>
             </ButtonsContainer>
           </CountButton>

@@ -52,7 +52,7 @@ const Alert: React.FC<AlertProps> = ({
   const { addToast } = useToast();
 
   const ENDPOINT =
-    user.UserProfile === 'Fundamental'
+    user.teamid  === 'Fundamental'
       ? (process.env.REACT_APP_FUND_API as string)
       : (process.env.REACT_APP_PROD_API as string);
 
@@ -61,8 +61,8 @@ const Alert: React.FC<AlertProps> = ({
       if (data.error !== '') {
         setIsSending(true);
         Axios.post(`${ENDPOINT}/reporterrorquestion`, {
-          UserId: user.UserId,
-          TeamId: user.UserTeamId,
+          UserId: user.userid,
+          TeamId: user.teamid,
           QuestionId,
           ReportErrorQuestion: data.error,
         }).then((response) => {
@@ -80,7 +80,7 @@ const Alert: React.FC<AlertProps> = ({
         alert('Preencha o campo com alguma informação');
       }
     },
-    [ENDPOINT, QuestionId, addToast, errFunc, user.UserId, user.UserTeamId],
+    [ENDPOINT, QuestionId, addToast, errFunc, user.userid, user.teamid],
   );
 
   return (

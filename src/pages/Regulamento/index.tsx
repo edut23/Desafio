@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-indent */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   PageRegulamento,
@@ -12,7 +14,6 @@ import {
 } from './styles';
 import Header from '../../components/Header';
 import Json from './regulamento.json';
-import { Link } from 'react-router-dom';
 import { ButtonsContainer } from '../Game/styles';
 
 interface SubItem {
@@ -55,8 +56,8 @@ const Regulamento: React.FC = () => {
           );
         })}
         <ButtonsContainer>
-        <Link to= '/payment' style={{ textDecoration: 'none' }}>
-        <StyledButton style={{ width: '100%' }} >Concordo</StyledButton>
+        <Link to="/main" style={{textDecoration:" none"}}>
+        <StyledButton style={{ width:"100%" }}>Concordo</StyledButton>
         </Link>
         </ButtonsContainer>
       </Container>

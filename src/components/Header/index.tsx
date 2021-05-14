@@ -11,6 +11,7 @@ import {
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
+//import { useTeam } from '../../hooks/team';
 
 import objLogo from '../../assets/img/logotry.png';
 
@@ -24,7 +25,8 @@ const Header: React.FC<HeaderProps> = ({
   setTab,
   children,
 }) => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  //const { teamOut } = useTeam();
   // const countDownFromDate = new Date(2020, 9, 10, 9, 0, 0, 0);
   // const countDownToDate = new Date(2020, 9, 11, 21, 0, 0, 0);
 
@@ -43,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
           from={countDownFromDate.getTime()}
         /> */}
         <LogoOptions>
-          {user && <HomeOption tab={selectedTab}>{user.UserName}</HomeOption>}
+          {user && <Link to = "/"><HomeOption tab={selectedTab} onClick = {signOut}>Desconectar</HomeOption></Link>}
           {!user && (
             <>
               <Link

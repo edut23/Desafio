@@ -32,10 +32,12 @@ import CountDown from '../../components/PageCountdown';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+import { useTeam } from '../../hooks/team'
 
 interface DataFormInfo {
   teamName: string;
   password: string;
+  teamid: string;
 }
 
 const Game: React.FC = () => {
@@ -49,7 +51,9 @@ const Game: React.FC = () => {
   }, []);
 
   const { addToast } = useToast();
-  const { signIn } = useAuth();
+  const { user, signIn, signOut } = useAuth();
+  const { signTeam } = useTeam();
+  
 
   const formRef = useRef<FormHandles>(null);
   const timeOutRef = useRef(0);
@@ -75,7 +79,9 @@ const Game: React.FC = () => {
     async (data: DataFormInfo) => {
       setIsLogging(true);
       setIsEnabled(false);
+      
       try {
+        await signOut();
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -87,15 +93,28 @@ const Game: React.FC = () => {
           abortEarly: false,
         });
 
+
+        signTeam(
         await signIn({
           email: data.teamName,
           password: data.password,
-        });
+        }));
+
+        console.log("deu...")
+
+        const teamid = user
+
+        
+        console.log(teamid)
+
+        
+
+        console.log("bão")
 
         setIsLogging(false);
         setIsEnabled(true);
 
-        window.location.href = '/questionary';
+          window.location.href = '/main';
       } catch (err) {
         setIsLogging(false);
         setIsEnabled(true);
@@ -176,7 +195,7 @@ const Game: React.FC = () => {
                     <StyledInput
                       name="teamName"
                       icon={FiUser}
-                      placeholder="usuário"
+                      placeholder="email"
                       style={{ width: 300 }}
                     />
                     <StyledInput

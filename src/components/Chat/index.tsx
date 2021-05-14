@@ -45,8 +45,8 @@ const Chat: React.FC<ChatProps> = ({ wsConnection, sendMessage }) => {
         wsConnection !== undefined
       ) {
         if (sendMessage) {
-          sendMessage(user.UserName, user.UserTeamId, inputRef.value as string);
-          addMessage(inputRef.value as string, user.UserName);
+          sendMessage(user.nickname, user.teamid, inputRef.value as string);
+          addMessage(inputRef.value as string, user.nickname);
         }
         inputRef.value = '';
       }
@@ -55,7 +55,7 @@ const Chat: React.FC<ChatProps> = ({ wsConnection, sendMessage }) => {
         lastMessage.current.scrollIntoView();
       }
     },
-    [addMessage, sendMessage, user.UserName, user.UserTeamId, wsConnection],
+    [addMessage, sendMessage, user.nickname, user.teamid, wsConnection],
   );
 
   useEffect(() => {
@@ -70,22 +70,22 @@ const Chat: React.FC<ChatProps> = ({ wsConnection, sendMessage }) => {
   return (
     <Container>
       <Content>
-        <ChatTitle>{`Chat do time ${user.TeamName}`}</ChatTitle>
+        <ChatTitle>{`Chat do time ${user.teamid}`}</ChatTitle>
         <ChatHistoryContainer>
           {messages &&
             messages.map((message, index) => {
               return (
                 message.message !== '' &&
-                user.UserName !== undefined && (
+                user.nickname !== undefined && (
                   <Message
-                    isMe={user.UserName === message.userName}
+                    isMe={user.nickname === message.userName}
                     ref={
                       index === messages.length - 1
                         ? lastMessage
                         : notLastMessage
                     }
                     // eslint-disable-next-line react/no-array-index-key
-                    key={`${user.UserName}-${index}`}
+                    key={`${user.nickname}-${index}`}
                   >
                     <strong>{`${message.userName}: `}</strong>
                     {message.message}

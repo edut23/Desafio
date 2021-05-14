@@ -39,11 +39,11 @@ const EndGame: React.FC = () => {
           <OrangeContainer print={print}>
             <img src={chicoLogo} alt="" />
             <h2>
-              Parabéns <strong>{user.UserName}</strong>
+              Parabéns <strong>{user.nickname}</strong>
             </h2>
             <span>
               <p style={{ whiteSpace: 'pre-line' }}>
-                Agradecemos a todos do time <strong>{user.TeamName}</strong> por
+                Agradecemos a todos do time <strong>{user.teamid}</strong> por
                 terem participado deste desafio em 2020. Parabéns por todo seu
                 esforço, dedicação e superação.{'\n'}
                 {'\n'} Colégio Objetivo, Outubro 2020

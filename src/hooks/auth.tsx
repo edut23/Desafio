@@ -2,13 +2,13 @@ import React, { createContext, useCallback, useState, useContext } from 'react';
 import Axios from 'axios';
 
 interface User {
-  UserId: string;
-  UserTeamId: string;
-  UserName: string;
-  UserEmail: string;
-  TeamCurrentQuestionId: string;
-  TeamName: string;
-  UserProfile: string;
+  email: string;
+  password: string;
+  nickname: string;
+  fullname: string;
+  userid: string;
+  imageurl: string;
+  teamid: string;
 }
 
 interface AuthContextData {
@@ -34,9 +34,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<UserLoginData>(() => {
     const token = localStorage.getItem('@Challenge:token');
     const user = localStorage.getItem('@Challenge:user');
-
+    
     if (user) {
-      Axios.defaults.headers.authorization = `Bearer ${token}`;
+      //Axios.defaults.headers.authorization = `Bearer ${token}`;
       return {
         token,
         user: JSON.parse(user),
@@ -47,28 +47,34 @@ export const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
+    console.log("foi")
     const response = await Axios.post(
-      `${process.env.REACT_APP_PROD_API}/login`,
+      `https://j1hjd787mc.execute-api.sa-east-1.amazonaws.com/prod/login`,
       {
-        UserEmail: email,
-        UserPassword: password,
+        "email": email,
+        "password": password,
       },
     );
+    console.log("foi1")
 
-    const { user, team } = response.data;
-
-    Object.assign(user, {
-      TeamCurrentQuestionId: team.TeamCurrentQuestionId,
-      TeamName: team.TeamName,
-    });
-
+    const {user}  = response.data;
+    
+    console.log("foi2")
+    console.log(user)
+    console.log(data.user)
+    Object.assign(user)
+    //Object.assign(data.user)
+    
     if (user !== undefined) {
       localStorage.setItem('@Challenge:user', JSON.stringify(user));
     }
 
+    console.log("autorizo")
+
     setData({
       user,
     });
+    return user.teamid
   }, []);
 
   const signOut = useCallback(() => {

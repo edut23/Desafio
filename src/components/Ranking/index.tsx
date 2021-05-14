@@ -43,7 +43,7 @@ const Ranking: React.FC<RankingProps> = ({ children, content }) => {
         <Body>
           {list.map((item, index) => (
             <Item
-              myTeam={user.TeamName === item.TeamName && true}
+              myTeam={user.teamid === item.TeamName && true}
               key={item.TeamName}
             >
               <QuestionPoints>
@@ -55,7 +55,7 @@ const Ranking: React.FC<RankingProps> = ({ children, content }) => {
                   <strong>{`Questão ${item.TeamCurrentQuestionId}`}</strong>
                 )}
               </QuestionPoints>
-              {user.TeamName === item.TeamName && (
+              {user.teamid === item.TeamName && (
                 <p>{`${item.TeamPoints} pts`}</p>
               )}
             </Item>
