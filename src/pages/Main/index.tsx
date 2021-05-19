@@ -15,6 +15,7 @@ import {
   CountButton,
   TopText,
 } from './styles';
+import { LoadingContainer } from '../../components/Alert/styles';
 
 interface DataFormInfo {
     name: string;
@@ -34,6 +35,11 @@ const Main: React.FC = () => {
   const { user } = useAuth();
   const [time, setTime] = useState('');
   const { team } = useTeam();
+  
+  const Load = (async () => {
+    await console.log(user);
+    await console.log(team);
+  });
 
   useEffect(() => {
     setTab('home');
@@ -53,7 +59,7 @@ const Main: React.FC = () => {
 
 
   return (
-    <PageLanding>
+    <PageLanding> 
       <HeaderA selectedTab={tab} setTab={() => setTab} />
       <Container>
         <Content>
@@ -71,8 +77,13 @@ const Main: React.FC = () => {
           </CountButton>
         </Content>
       </Container>
+      {!user && <Container>{window.location.href = '/'}</Container>}
     </PageLanding>
   );
 };
 
 export default Main;
+
+
+
+

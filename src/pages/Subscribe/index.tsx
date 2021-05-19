@@ -39,14 +39,14 @@ const Subscribe: React.FC = () => {
   const [isLogging, setIsLogging] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
   const { user, signIn, signOut } = useAuth();
-  const { signTeam } = useTeam();
+  const { team, signTeam } = useTeam();
 
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data: DataFormInfo) => {
     setIsLogging(true);
     setIsEnabled(false);
-    //signOut();
+    signOut();
     try {
       formRef.current?.setErrors({});
 
@@ -85,7 +85,7 @@ const Subscribe: React.FC = () => {
         }
       ).then(res => console.log(res))
 
-      signTeam(
+      await signTeam(
         await signIn({
         email: data.useremail,
         password: data.userpassword,
@@ -123,10 +123,11 @@ const Subscribe: React.FC = () => {
     <PageGame>
       <Header />
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
-      <TContainer>
+      {!user &&<TContainer>
         <PageWrapper>
+        <FormContainer>
           <CircleContent title="Logo do projeto" load={change} logo={chicoLogo}>
-            <FormContainer>
+            <br/>
               <Form ref={formRef} onSubmit={handleSubmit}>
                 <StyledInput
                   name="useremail"
@@ -145,7 +146,9 @@ const Subscribe: React.FC = () => {
                   icon={FiUser}
                   placeholder="Categoria"
                   style={{ width: 300 }}
+                  list="Nivel"
                 />
+                
                 <StyledInput
                   name="usernickname"
                   icon={FiUser}
@@ -156,7 +159,7 @@ const Subscribe: React.FC = () => {
                   name="userpassword"
                   icon={FiLock}
                   type="Senha"
-                  placeholder="senha"
+                  placeholder="Senha"
                 />
                 <StyledInput
                   name="teamname"
@@ -171,13 +174,20 @@ const Subscribe: React.FC = () => {
                 >
                   {isLogging ? <ReactLoading /> : 'Cadastar'}
                 </StyledButton>
+                <br/>
+                <datalist id="Nivel">
+                  <option value="Fundamental">Fundamental</option>
+                  <option value="Médio">Médio</option>
+                </datalist>
 
                 {/* <Link to="forgot-userpassword">Esqueci minha senha</Link> */}
               </Form>
-            </FormContainer>
+            
           </CircleContent>
+          </FormContainer>
         </PageWrapper>
-      </TContainer>
+      </TContainer>}
+      {user && team && <TContainer>{window.location.href = '/main'}</TContainer>}
     </PageGame>
   );
 };

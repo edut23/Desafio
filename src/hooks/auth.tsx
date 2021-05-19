@@ -61,7 +61,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     
     console.log("foi2")
     console.log(user)
-    console.log(data.user)
+    //console.log(data.user)
     Object.assign(user)
     //Object.assign(data.user)
     
@@ -80,6 +80,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@Challenge:token');
     localStorage.removeItem('@Challenge:user');
+      
 
     setData({} as UserLoginData);
   }, []);

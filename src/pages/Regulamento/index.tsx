@@ -15,6 +15,7 @@ import {
 import Header from '../../components/Header';
 import Json from './regulamento.json';
 import { ButtonsContainer } from '../Game/styles';
+import {useAuth} from '../../hooks/auth'
 
 interface SubItem {
   text: string;
@@ -23,6 +24,8 @@ interface SubItem {
 
 const Regulamento: React.FC = () => {
   const [tab, setTab] = useState('');
+  const {user} = useAuth();
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
     setTab('regulamento');
@@ -40,7 +43,18 @@ const Regulamento: React.FC = () => {
 
   return (
     <PageRegulamento>
-      <Header selectedTab={tab} />
+      <Header selectedTab={tab}>
+      <ButtonsContainer style={{ alignContent:"left" }}>
+        {user &&
+        <Link to="/main" style={{textDecoration:" none"}}>
+         <StyledButton style={{ width:"100%"}} onClick={() =>setMenu(true)}>Concordo</StyledButton>
+        </Link>}
+        {!user &&
+        <Link to="/" style={{textDecoration:" none"}}>
+         <StyledButton style={{ width:"100%" }} onClick={() =>setMenu(false)}>Participe já</StyledButton>
+        </Link>}
+        </ButtonsContainer>
+        </Header>
       <Container>
         {Json.regulamento.map((item) => {
           return (
@@ -55,11 +69,6 @@ const Regulamento: React.FC = () => {
             </Card>
           );
         })}
-        <ButtonsContainer>
-        <Link to="/main" style={{textDecoration:" none"}}>
-        <StyledButton style={{ width:"100%" }}>Concordo</StyledButton>
-        </Link>
-        </ButtonsContainer>
       </Container>
     </PageRegulamento>
   );

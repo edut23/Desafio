@@ -52,7 +52,7 @@ const Game: React.FC = () => {
 
   const { addToast } = useToast();
   const { user, signIn, signOut } = useAuth();
-  const { signTeam } = useTeam();
+  const { team, signTeam } = useTeam();
   
 
   const formRef = useRef<FormHandles>(null);
@@ -94,7 +94,7 @@ const Game: React.FC = () => {
         });
 
 
-        signTeam(
+        await signTeam(
         await signIn({
           email: data.teamName,
           password: data.password,
@@ -114,7 +114,7 @@ const Game: React.FC = () => {
         setIsLogging(false);
         setIsEnabled(true);
 
-          window.location.href = '/main';
+        //window.location.href = '/main';
       } catch (err) {
         setIsLogging(false);
         setIsEnabled(true);
@@ -165,7 +165,7 @@ const Game: React.FC = () => {
     <PageGame>
       <Header />
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
-      <TContainer>
+      {!user &&<TContainer>
         <PageWrapper>
           {card !== 'login' ? (
             <CircleContent
@@ -217,7 +217,8 @@ const Game: React.FC = () => {
               </CircleContent>
             )}
         </PageWrapper>
-      </TContainer>
+      </TContainer>}
+      {user && team && <TContainer>{window.location.href = '/main'}</TContainer>}
     </PageGame>
   );
 };

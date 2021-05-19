@@ -17,6 +17,7 @@ import {
 
 import Countdown from '../../components/PageCountdown';
 import {useTeam} from '../../hooks/team'
+import {useAuth} from '../../hooks/auth'
 
 interface ResponseLoginFake {
   email: string;
@@ -29,6 +30,7 @@ const Landing: React.FC = () => {
   const [tab, setTab] = useState('');
   const [isLogging, setIsLogging] = useState(false);
   const {teamOut} = useTeam();
+  const {user} = useAuth();
 
   useEffect(() => {
     setTab('home');
@@ -75,6 +77,7 @@ const Landing: React.FC = () => {
                 <ButtonSubscribe enabled onClick={teamOut}>Entrar</ButtonSubscribe>
               </Link>
             </ButtonsContainer>
+            {user && <Container>{window.location.href = '/main'}</Container>}
           </CountButton>
         </Content>
       </Container>
