@@ -11,7 +11,9 @@ import Landing from '../pages/Landing';
 import Subscribe from '../pages/Subscribe';
 import Payment from '../pages/Payment';
 import Main from '../pages/Main';
-import PaymentBol from '../components/PaymentBol'
+import PaymentBol from '../components/PaymentBol';
+import invite from '../pages/invite';
+import Accept from '../pages/Accepted'
 
 import Route from './Route';
 
@@ -29,6 +31,8 @@ const routes: React.FC = () => {
       <Route path="/endgame" component={EndGame} isPrivate />
       <Route path="/payment" component={Payment} />
       <Route path="/paymentbol" component={PaymentBol} />
+      <Route path="/invite" component={invite} />
+      <Route path="/accept" component={Accept} />
     </Switch>
   );
 };

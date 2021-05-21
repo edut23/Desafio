@@ -26,7 +26,7 @@ import {
   CircleContent,
   StyledButton,
   PageWrapper,
-  FormContainer,
+  BackButton,
   StyledInput,
   ButtonsContainer,
 } from './styles';
@@ -57,6 +57,10 @@ interface DataPay {
       setIsBol(true);
       console.log(pay, isBol);
     }
+
+    const goBack = () => {
+      window.history.back()
+    }
   
   
     useEffect(() => {
@@ -76,6 +80,7 @@ interface DataPay {
         <Header />
         <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
         <TContainer>
+        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
           <PageWrapper>
             <CircleContent title="Logo do projeto" >
             {pay !== 'login' ? (

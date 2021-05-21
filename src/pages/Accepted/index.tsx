@@ -20,9 +20,7 @@ import {
   StyledButton,
   PageWrapper,
   FormContainer,
-  ButtonsContainer,
   StyledInput,
-  BackButton,
 } from './styles';
 
 import Header from '../../components/Header';
@@ -30,13 +28,12 @@ import Header from '../../components/Header';
 interface DataFormInfo {
   useremail: string;
   userfullname: string;
-  teamcategory: string;
   usernickname: string;
   userpassword: string;
-  teamname: string;
+  teamid: string;
 }
 
-const Subscribe: React.FC = () => {
+const Accept: React.FC = () => {
   const [change, setChange] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
@@ -55,10 +52,8 @@ const Subscribe: React.FC = () => {
       const schema = Yup.object().shape({
         useremail: Yup.string().email('Insira um email válido').required('Email obrigatório'),
         userfullname: Yup.string().required('Nome completo obrigatório'),
-        teamcategory: Yup.string().required('Categoria obrigatório'),
         usernickname: Yup.string().required('Nome do usuário obrigatório'),
         userpassword: Yup.string().required('Senha obrigatória'),
-        teamname: Yup.string().required('Nome do time obrigatório'),
       });
 
       console.log("foi1")
@@ -70,20 +65,18 @@ const Subscribe: React.FC = () => {
       console.log("foi2")
       console.log(data.useremail,
         data.userfullname,
-        data.teamcategory,
         data.usernickname,
         data.userpassword,
-        data.teamname)
+        user.teamid)
 
       await Axios.post(
-        `https://j1hjd787mc.execute-api.sa-east-1.amazonaws.com/prod/signup`,
+        `https://j1hjd787mc.execute-api.sa-east-1.amazonaws.com/prod/invite/accepted`,
         {
-          useremail: data.useremail,
           userfullname: data.userfullname,
-          teamcategory: data.teamcategory,
-          usernickname: data.usernickname,
+          useremail: data.useremail,
           userpassword: data.userpassword,
-          teamname: data.teamname
+          usernickname: data.usernickname,
+          teamid: user.teamid
         }
       ).then(res => console.log(res))
 
@@ -109,10 +102,6 @@ const Subscribe: React.FC = () => {
     }
   }, []);
 
-  const goBack = () => {
-    window.history.back()
-  }
-
   useEffect(() => {
     const script = document.createElement('script');
 
@@ -129,8 +118,7 @@ const Subscribe: React.FC = () => {
     <PageGame>
       <Header />
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
-      {!user &&<TContainer>
-        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
+      <TContainer>
         <PageWrapper>
         <FormContainer>
           <CircleContent title="Logo do projeto" load={change} logo={chicoLogo}>
@@ -149,14 +137,6 @@ const Subscribe: React.FC = () => {
                   style={{ width: 300 }}
                 />
                 <StyledInput
-                  name="teamcategory"
-                  icon={FiUser}
-                  placeholder="Categoria"
-                  style={{ width: 300 }}
-                  list="Nivel"
-                />
-                
-                <StyledInput
                   name="usernickname"
                   icon={FiUser}
                   placeholder="Nome de usuário"
@@ -168,12 +148,6 @@ const Subscribe: React.FC = () => {
                   type="Senha"
                   placeholder="Senha"
                 />
-                <StyledInput
-                  name="teamname"
-                  icon={FiUser}
-                  placeholder="Nome do time"
-                  style={{ width: 300 }}
-                />
                 <StyledButton
                   style={{ width: '100%' }}
                   enabled={isEnabled}
@@ -181,22 +155,15 @@ const Subscribe: React.FC = () => {
                 >
                   {isLogging ? <ReactLoading /> : 'Cadastar'}
                 </StyledButton>
-                <br/>
-                <datalist id="Nivel">
-                  <option value="Fundamental">Fundamental</option>
-                  <option value="Médio">Médio</option>
-                </datalist>
-
                 {/* <Link to="forgot-userpassword">Esqueci minha senha</Link> */}
               </Form>
             
           </CircleContent>
           </FormContainer>
         </PageWrapper>
-      </TContainer>}
-      {user && team && <TContainer>{window.location.href = '/main'}</TContainer>}
+      </TContainer>
     </PageGame>
   );
 };
 
-export default Subscribe;
+export default Accept;

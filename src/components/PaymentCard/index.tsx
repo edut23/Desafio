@@ -13,6 +13,9 @@ import { FiLock, FiUser } from 'react-icons/fi';
 import * as Yup from 'yup';
 import ReactLoading from 'react-loading';
 import { cpf } from 'cpf-cnpj-validator'; 
+import { usePay } from '../../hooks/payment'
+import { useAuth } from '../../hooks/auth'
+import { useTeam } from '../../hooks/team'
 
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -46,6 +49,8 @@ interface DataPay {
     const [change, setChange] = useState(false);
     const [isLogging, setIsLogging] = useState(false);
     const [isEnabled, setIsEnabled] = useState(true);
+    const { user } = useAuth();
+    const { pay } = usePay();
   
     const formRef = useRef<FormHandles>(null);
   
@@ -76,7 +81,7 @@ interface DataPay {
   
         setIsLogging(false);
         setIsEnabled(true);
-        console.log('foi5', data.cpf, data.exp);
+        console.log('foi5', data.cpf, data.exp, user.userid, user.teamid);
         await pagarme.client.connect({ api_key: 'ak_test_Y3WjbDGmMDR1BV0hrBBypUuuaygGti' })
           .then((client: { transactions: { create: (arg0: { amount: number; cpf: string; card_number: string; card_cvv: string; card_expiration_date: string; card_holder_name: string; customer: { external_id: string; name: string; type: string; country: string; email: string; documents: { type: string; number: string; }[]; phone_numbers: string[]; birthday: string; }; billing: { name: string; address: { country: string; state: string; city: string; neighborhood: string; street: string; street_number: string; zipcode: string; }; }; items: { id: string; title: string; unit_price: number; quantity: number; tangible: boolean; }[]; }) => object; }; }) => client.transactions.create({
             amount: 8000,
@@ -124,9 +129,11 @@ interface DataPay {
           }
           )
           )
-          .then((transaction: { id: object; e: any;}) => {console.log(transaction.id); alert("Pagamento realizado com sucesso.")})
+          .then((transaction: {status: string; payment_method: string; id: string; e: any;}) => 
+          {console.log  ({paymentmethod: transaction.payment_method, status: transaction.status, paymentid: transaction.id, userid: user.userid, teamid: user.teamid}); 
+            console.log(transaction.id); alert("Pagamento realizado com sucesso.")})
           .catch((e: any) => alert("Pagamento não realizado, verifique seus dados."));
-        window.location.href = '/main';
+        //window.location.href = '/main';
       } catch (err) {
         setIsLogging(false);
         setIsEnabled(true);

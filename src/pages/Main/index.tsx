@@ -69,7 +69,9 @@ const Main: React.FC = () => {
           <TopText>Gerenciar time</TopText>
           <CountButton>
             <ButtonsContainer>
+              <Link to="/invite">
                 <ButtonSubscribe type="submit">Adicionar membros</ButtonSubscribe>
+              </Link>
               <Link to="/payment">
                 <ButtonSubscribe enabled>Pagar inscrição</ButtonSubscribe>
               </Link>

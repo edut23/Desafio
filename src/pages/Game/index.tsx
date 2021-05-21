@@ -25,6 +25,7 @@ import {
   FormContainer,
   ButtonsContainer,
   StyledInput,
+  BackButton
 } from './styles';
 
 import Header from '../../components/Header';
@@ -149,6 +150,10 @@ const Game: React.FC = () => {
     }, 500);
   }, [change, loadLoginCard, showDown]);
 
+  const goBack = () => {
+    window.history.back()
+  }
+
   useEffect(() => {
     const script = document.createElement('script');
 
@@ -166,6 +171,7 @@ const Game: React.FC = () => {
       <Header />
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
       {!user &&<TContainer>
+        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
         <PageWrapper>
           {card !== 'login' ? (
             <CircleContent

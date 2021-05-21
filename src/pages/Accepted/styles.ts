@@ -107,32 +107,6 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const BackButton = styled(Button)<StyledButtonProps>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* margin-top: 4%; */
-  width: 7%;
-
-  background: #fb7c1f;
-  color: #fff;
-
-  &:hover {
-    background: ${shade(0.4, '#fb7c1f')};
-  }
-
-  font-family: 'Poppins';
-  font-size: 18px;
-
-  
-
-  ${(props) =>
-    props.countdownOver &&
-    css`
-      width: 100%;
-    `}
-`;
-
 export const StyledButton = styled(Button)<StyledButtonProps>`
   display: flex;
   justify-content: center;
@@ -156,8 +130,6 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
       width: 100%;
     `}
 `;
-
-
 
 export const StyledInput = styled(Input)`
   /* width: 300px; */
