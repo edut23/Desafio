@@ -43,18 +43,17 @@ const Regulamento: React.FC = () => {
 
   return (
     <PageRegulamento>
-      <Header selectedTab={tab}>
-      <ButtonsContainer style={{ alignContent:"left" }}>
-        {user &&
-        <Link to="/main" style={{textDecoration:" none"}}>
-         <StyledButton style={{ width:"100%"}} onClick={() =>setMenu(true)}>Concordo</StyledButton>
-        </Link>}
-        {!user &&
-        <Link to="/" style={{textDecoration:" none"}}>
-         <StyledButton style={{ width:"100%" }} onClick={() =>setMenu(false)}>Participe já</StyledButton>
-        </Link>}
+      <Header selectedTab={tab}/>
+        <ButtonsContainer style={{ alignContent:"center" }}>
+          {user &&
+          <Link to="/main" style={{textDecoration:" none"}}>
+          <StyledButton style={{ width:"40%"}} onClick={() =>setMenu(true)}>Concordo</StyledButton>
+          </Link>}
+          {!user &&
+          <Link to="/" style={{textDecoration:" none"}}>
+          <StyledButton style={{ width:"40%" }} onClick={() =>setMenu(false)}>Participe já</StyledButton>
+          </Link>}
         </ButtonsContainer>
-        </Header>
       <Container>
         {Json.regulamento.map((item) => {
           return (

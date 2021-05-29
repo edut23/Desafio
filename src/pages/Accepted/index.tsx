@@ -121,7 +121,7 @@ const Accept: React.FC = () => {
       <TContainer>
         <PageWrapper>
         <FormContainer>
-          <CircleContent title="Logo do projeto" load={change} logo={chicoLogo}>
+          <CircleContent>
             <br/>
               <Form ref={formRef} onSubmit={handleSubmit}>
                 <StyledInput

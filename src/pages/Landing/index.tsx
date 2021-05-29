@@ -77,7 +77,7 @@ const Landing: React.FC = () => {
                 <ButtonSubscribe enabled onClick={teamOut}>Entrar</ButtonSubscribe>
               </Link>
             </ButtonsContainer>
-            {user && <Container>{window.location.href = '/main'}</Container>}
+            {/*user && <Container>{window.location.href = '/main'}</Container>*/}
           </CountButton>
         </Content>
       </Container>

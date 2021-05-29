@@ -162,3 +162,45 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 export const StyledInput = styled(Input)`
   /* width: 300px; */
 `;
+
+export const Logo = styled.img`
+  height: 40px;
+  position: absolute;
+
+  opacity: 1;
+`;
+
+export const LogoContent = styled.div`
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: left;
+  justify-content: left;
+`;
+
+export const LogoOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  margin-left: auto;
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    margin-right: 48px;
+    color: #fff;
+
+    transition: color 0.4s;
+
+    font-family: 'Poppins';
+    font-size: 18px;
+
+    &:hover {
+      cursor: pointer;
+      color: ${shade(0.4, '#bdbdbd')};
+    }
+  }
+`;

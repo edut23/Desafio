@@ -13,7 +13,6 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import chicoLogo from '../../assets/img/chicoLogo3.png';
 
 import {
   PageGame,
@@ -25,15 +24,18 @@ import {
   FormContainer,
   ButtonsContainer,
   StyledInput,
-  BackButton
+  BackButton,
+  LContainer
 } from './styles';
 
 import Header from '../../components/Header';
+import seta from '../../assets/img/seta.png';
 import CountDown from '../../components/PageCountdown';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import { useTeam } from '../../hooks/team'
+import { Logo, LogoContent, LogoOptions } from '../../components/Header/styles';
 
 interface DataFormInfo {
   teamName: string;
@@ -54,6 +56,7 @@ const Game: React.FC = () => {
   const { addToast } = useToast();
   const { user, signIn, signOut } = useAuth();
   const { team, signTeam } = useTeam();
+  const [loading, setLoading] = useState(false);
   
 
   const formRef = useRef<FormHandles>(null);
@@ -81,6 +84,7 @@ const Game: React.FC = () => {
       setIsLogging(true);
       setIsEnabled(false);
       
+      
       try {
         await signOut();
         formRef.current?.setErrors({});
@@ -93,6 +97,8 @@ const Game: React.FC = () => {
         await schema.validate(data, {
           abortEarly: false,
         });
+        
+        setLoading(true);
 
 
         await signTeam(
@@ -154,6 +160,10 @@ const Game: React.FC = () => {
     window.history.back()
   }
 
+  const logo = () => {
+    window.location.href = '/main'
+  }
+
   useEffect(() => {
     const script = document.createElement('script');
 
@@ -168,34 +178,13 @@ const Game: React.FC = () => {
 
   return (
     <PageGame>
-      <Header />
+      <Header/>
+      {loading && <LContainer><ReactLoading type= "spin" color= "orange" height={1000} width={500}/></LContainer>}
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
-      {!user &&<TContainer>
-        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
-        <PageWrapper>
-          {card !== 'login' ? (
-            <CircleContent
-              title="Logo do projeto"
-              load={change}
-              logo={chicoLogo}
-            >
-              <Content>
-                Divirta-se junto com sua equipe solucionando o desafio do
-                colégio objetivo
-              </Content>
-              <CountDown to={countDownFromDate.getTime()} background={false} />
-              <ButtonsContainer>
-                <StyledButton countdownOver onClick={debounceStartGame}>
-                  Começar
-                </StyledButton>
-              </ButtonsContainer>
-            </CircleContent>
-          ) : (
-              <CircleContent
-                title="Logo do projeto"
-                load={change}
-                logo={chicoLogo}
-              >
+      {!loading && <LogoContent><LogoOptions><Logo onClick={goBack} src={seta} alt="seta" style={{width: 40, height: 40, marginRight:'5em', marginTop:'-1em'} } />
+        <TContainer>
+          {!user &&<PageWrapper>
+              <CircleContent>
                 <FormContainer>
                   <Form ref={formRef} onSubmit={handleSubmit}>
                     <StyledInput
@@ -221,10 +210,10 @@ const Game: React.FC = () => {
                   </Form>
                 </FormContainer>
               </CircleContent>
-            )}
-        </PageWrapper>
-      </TContainer>}
-      {user && team && <TContainer>{window.location.href = '/main'}</TContainer>}
+        </PageWrapper>}
+      </TContainer>
+      </LogoOptions></LogoContent>}
+      {user && team && logo()}
     </PageGame>
   );
 };

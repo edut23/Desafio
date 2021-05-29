@@ -21,16 +21,17 @@ export const PageGame = styled.div`
 `;
 
 export const TContainer = styled.div`
-  width: 100vw;
-  height: 87.9vh;
+
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  margin-left: 10em;
+  position: relative;
 
-  padding: 18px;
+  padding: 3px;
 
-  animation: ${loadFromTransparent} 1.4s;
+
 `;
 
 export const PageWrapper = styled.div`
@@ -38,14 +39,14 @@ export const PageWrapper = styled.div`
 `;
 
 export const CircleContent = styled(Card)<Test>`
-  width: 500px;
+  width: 400px;
   height: 500px;
 
   display: flex;
   justify-content: center;
   position: relative;
 
-  margin-left: 16em;
+  margin-left: 7em;
 
   ${(props) =>
     props.load

@@ -5,20 +5,9 @@
 /* eslint-disable react/jsx-equals-spacing */
 /* eslint-disable react/jsx-indent */
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import { mask as masker, unMask } from "remask";
-import Cards from 'react-credit-cards'
-import pagarme from 'pagarme'
-import { FiLock, FiUser } from 'react-icons/fi';
-import * as Yup from 'yup';
-import ReactLoading from 'react-loading';
 import PaymentCard from '../../components/PaymentCard';
 import PaymentBol from '../../components/PaymentBol';
 
-import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
-
-import getValidationErrors from '../../utils/getValidationErrors';
-import chicoLogo from '../../assets/img/chicoLogo3.png';
 
 import {
   PageGame,
@@ -27,12 +16,13 @@ import {
   StyledButton,
   PageWrapper,
   BackButton,
-  StyledInput,
   ButtonsContainer,
 } from './styles';
 
 import Header from '../../components/Header';
 import { Container } from '../../components/ToastContainer/styles';
+import { LogoOptions, Logo, LogoContent } from './styles';
+import seta from '../../assets/img/seta.png';
 
 interface DataPay {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -45,6 +35,7 @@ interface DataPay {
     const [isCard, setIsCard] = useState(false);
     const [isBol, setIsBol] = useState(false);
     const [pay, setPay] = useState('')
+    const [focused, setFocused] = useState();
 
     const PayCard = ()=> {
       setPay('login');
@@ -59,7 +50,20 @@ interface DataPay {
     }
 
     const goBack = () => {
+      if(!isCard && !isBol)
       window.history.back()
+      else if(isCard && !isBol){
+        setPay('false')
+        setIsCard(false)
+      }
+      else if(!isCard && isBol){
+        setPay('false')
+        setIsBol(false)
+      }
+    }
+
+    function changeFocus(e: any){
+      setFocused(e.target.id)
     }
   
   
@@ -78,9 +82,10 @@ interface DataPay {
     return (
       <PageGame>
         <Header />
+        <LogoContent><LogoOptions><Logo onClick={goBack} src={seta} alt="seta" onFocus={changeFocus}/>
         <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
         <TContainer>
-        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
+          <br/>
           <PageWrapper>
             <CircleContent title="Logo do projeto" >
             {pay !== 'login' ? (
@@ -92,10 +97,11 @@ interface DataPay {
                   Boleto
                 </StyledButton>
               </ButtonsContainer>
-          ) : ((isCard && <PaymentCard/>) || (isBol && <PaymentBol/>))}
+          ) : ((isCard && <TContainer><PaymentCard/></TContainer>) || (isBol && <TContainer><PaymentBol/></TContainer>))}
             </CircleContent>
           </PageWrapper>
         </TContainer>
+        </LogoOptions></LogoContent>
       </PageGame>
     );
   };

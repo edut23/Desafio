@@ -34,6 +34,7 @@ import {
 } from './styles';
 
 import Header from '../../components/Header';
+import { Container } from '../ToastContainer/styles';
 
 interface DataPay {
     cpf: string;
@@ -206,17 +207,10 @@ interface DataPay {
     }, []);
   
     return (
-      <TContainer>
+      <Container style={{position: "fixed", marginRight:"8em"}}>
+        <TContainer>
               <FormContainer>
                 <Form ref={formRef} onSubmit={handleSubmit}>
-                <Cards
-                number={card_number}
-                name={Nome_card}
-                expiry={Exp}
-                cvc={CVV}
-                focused={focused}
-                />
-                <br/>
                   <StyledInput
                     name="cpf"
                     icon={FiUser}
@@ -232,6 +226,7 @@ interface DataPay {
                       const ehValido = validarCPF(CPF);
                       console.log(ehValido)
                     }}
+                    onFocus={changeFocus}
                   />
                   <StyledInput
                     name="cardNumber"
@@ -295,7 +290,16 @@ interface DataPay {
                   {/* <Link to="forgot-password">Esqueci minha senha</Link> */}
                 </Form>
               </FormContainer>
-      </TContainer>
+              <CircleContent>
+              <Cards
+                number={card_number}
+                name={Nome_card}
+                expiry={Exp}
+                cvc={CVV}
+                focused={focused}
+                /></CircleContent>
+                </TContainer>
+      </Container>
     );
   };
   

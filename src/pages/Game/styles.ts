@@ -21,8 +21,8 @@ export const PageGame = styled.div`
 `;
 
 export const TContainer = styled.div`
-  width: 100vw;
-  height: 87.9vh;
+  width: 90vw;
+  height: 0vh;
 
   display: flex;
   flex-direction: column;
@@ -38,12 +38,12 @@ export const PageWrapper = styled.div`
 `;
 
 export const CircleContent = styled(Card) <Test>`
-  width: 500px;
-  height: 500px;
+  width: 300px;
+  height: 300px;
 
   display: flex;
   justify-content: center;
-  position: relative;
+  position: fixed;
 
   margin-left: 16em;
 
@@ -62,7 +62,7 @@ export const FormContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: auto;
+  width: 40%;
   margin-top: 12%;
 
   text-align: center;
@@ -160,3 +160,40 @@ export const StyledButton = styled(Button) <StyledButtonProps>`
 export const StyledInput = styled(Input)`
   /* width: 300px; */
 `;
+
+export const Logo = styled.img`
+  height: 40px;
+  width: 40px;
+
+  opacity: 1;
+`;
+
+export const LogoContent = styled.div`
+  width: 10%;
+  height: 370px;
+
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  position: relative;
+`;
+
+export const LogoOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  margin-left: auto;
+`;
+
+export const LContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  align-itens: center;
+  align: center;
+  justify-content: left;
+
+  margin-left: 22em;
+  margin-top: 2em;
+`;
+

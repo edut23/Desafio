@@ -16,6 +16,8 @@ import {
   TopText,
 } from './styles';
 import { LoadingContainer } from '../../components/Alert/styles';
+import { useUsers } from '../../hooks/users';
+import ReactLoading from 'react-loading';
 
 interface DataFormInfo {
     name: string;
@@ -35,6 +37,8 @@ const Main: React.FC = () => {
   const { user } = useAuth();
   const [time, setTime] = useState('');
   const { team } = useTeam();
+  const { Users, signUsers } = useUsers();
+
   
   const Load = (async () => {
     await console.log(user);
@@ -45,6 +49,8 @@ const Main: React.FC = () => {
     setTab('home');
     console.log(user);
     console.log(team);
+    Load();
+    
 
     const script = document.createElement('script');
 
@@ -70,7 +76,7 @@ const Main: React.FC = () => {
           <CountButton>
             <ButtonsContainer>
               <Link to="/invite">
-                <ButtonSubscribe type="submit">Adicionar membros</ButtonSubscribe>
+                <ButtonSubscribe type="submit">Gerenciar time</ButtonSubscribe>
               </Link>
               <Link to="/payment">
                 <ButtonSubscribe enabled>Pagar inscrição</ButtonSubscribe>
@@ -79,7 +85,7 @@ const Main: React.FC = () => {
           </CountButton>
         </Content>
       </Container>
-      {!user && <Container>{window.location.href = '/'}</Container>}
+      {!user && <div>{window.location.href = '/'}</div>}
     </PageLanding>
   );
 };

@@ -4,7 +4,8 @@ import * as Yup from 'yup';
 import ReactLoading from 'react-loading';
 import Axios from 'axios';
 import { useAuth } from '../../hooks/auth';
-import { useTeam } from '../../hooks/team'
+import { useTeam } from '../../hooks/team';
+import { usePic } from '../../hooks/pic'
 
 
 import { Form } from '@unform/web';
@@ -23,9 +24,16 @@ import {
   ButtonsContainer,
   StyledInput,
   BackButton,
+  NewContainer,
+  CircleContent1,
+  CircleConten2,
 } from './styles';
 
 import Header from '../../components/Header';
+import seta from '../../assets/img/seta.png';
+import { LogoOptions, Logo, LogoContent } from './styles';
+import ImageUpload from '../../components/Image';
+import { LContainer } from '../Game/styles';
 
 interface DataFormInfo {
   useremail: string;
@@ -42,6 +50,9 @@ const Subscribe: React.FC = () => {
   const [isEnabled, setIsEnabled] = useState(true);
   const { user, signIn, signOut } = useAuth();
   const { team, signTeam } = useTeam();
+  const [loading, setLoading] = useState(false);
+  const [picture, setPicture] = useState<any>();
+  const { signPic} = usePic();
 
   const formRef = useRef<FormHandles>(null);
 
@@ -93,6 +104,8 @@ const Subscribe: React.FC = () => {
         password: data.userpassword,
       }));
 
+      await signPic(picture)
+
       setIsLogging(false);
       setIsEnabled(true);
 
@@ -112,6 +125,9 @@ const Subscribe: React.FC = () => {
   const goBack = () => {
     window.history.back()
   }
+  const logo = () => {
+    window.location.href = '/main'
+  }
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -128,14 +144,20 @@ const Subscribe: React.FC = () => {
   return (
     <PageGame>
       <Header />
-      <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
-      {!user &&<TContainer>
-        <ButtonsContainer><BackButton onClick={goBack}>Voltar</BackButton></ButtonsContainer>
+      {loading && <LContainer><ReactLoading type= "spin" color= "orange" height={1000} width={500}/></LContainer>}
+      {<script src="//code.jivosite.com/widget/AIh2Mhazzn" async />}
+      {!loading && <LogoContent><LogoOptions><Logo onClick={goBack} src={seta} alt="seta"/>
+      <TContainer>
+        {!user &&
         <PageWrapper>
-        <FormContainer>
-          <CircleContent title="Logo do projeto" load={change} logo={chicoLogo}>
-            <br/>
+          <CircleContent>
               <Form ref={formRef} onSubmit={handleSubmit}>
+              <CircleContent>
+                <NewContainer>
+                <FormContainer>
+                <CircleContent1>
+                <h3>Dados do usuário</h3>
+                <br/>
                 <StyledInput
                   name="useremail"
                   icon={FiUser}
@@ -149,14 +171,6 @@ const Subscribe: React.FC = () => {
                   style={{ width: 300 }}
                 />
                 <StyledInput
-                  name="teamcategory"
-                  icon={FiUser}
-                  placeholder="Categoria"
-                  style={{ width: 300 }}
-                  list="Nivel"
-                />
-                
-                <StyledInput
                   name="usernickname"
                   icon={FiUser}
                   placeholder="Nome de usuário"
@@ -168,14 +182,31 @@ const Subscribe: React.FC = () => {
                   type="Senha"
                   placeholder="Senha"
                 />
+                </CircleContent1>
+                </FormContainer>
+                <FormContainer>
+                <CircleConten2>
+                <h3>Dados do time</h3>
+                <br/>
                 <StyledInput
                   name="teamname"
                   icon={FiUser}
                   placeholder="Nome do time"
                   style={{ width: 300 }}
                 />
+                <StyledInput
+                  name="teamcategory"
+                  icon={FiUser}
+                  placeholder="Categoria"
+                  style={{ width: 300 }}
+                  list="Nivel"
+                />
+                <ImageUpload {...picture}/>
+                </CircleConten2>
+                </FormContainer>
+                </NewContainer>
                 <StyledButton
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', height: '150%' }}
                   enabled={isEnabled}
                   type="submit"
                 >
@@ -188,13 +219,13 @@ const Subscribe: React.FC = () => {
                 </datalist>
 
                 {/* <Link to="forgot-userpassword">Esqueci minha senha</Link> */}
+                </CircleContent>
               </Form>
-            
           </CircleContent>
-          </FormContainer>
         </PageWrapper>
-      </TContainer>}
-      {user && team && <TContainer>{window.location.href = '/main'}</TContainer>}
+      }
+      </TContainer></LogoOptions></LogoContent>}
+      {user && team && logo()}
     </PageGame>
   );
 };

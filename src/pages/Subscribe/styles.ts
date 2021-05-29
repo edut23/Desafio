@@ -21,14 +21,14 @@ export const PageGame = styled.div`
 `;
 
 export const TContainer = styled.div`
-  width: 100vw;
-  height: 87.9vh;
+  width: 90vw;
+  height: 67.9vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  padding: 18px;
+  padding: 2px;
 
   animation: ${loadFromTransparent} 1.4s;
 `;
@@ -38,14 +38,54 @@ export const PageWrapper = styled.div`
 `;
 
 export const CircleContent = styled(Card)<Test>`
-  width: 500px;
-  height: 500px;
+  width: 280px;
+  height: 300px;
 
   display: flex;
   justify-content: center;
   position: relative;
 
-  margin-left: 16em;
+  margin-left: 21em;
+
+  ${(props) =>
+    props.load
+      ? css`
+          animation: ${bringFromLeft} 1s;
+        `
+      : css`
+          animation: ${bringFromLeft} 1s;
+        `}
+`;
+
+export const CircleContent1 = styled(Card)<Test>`
+  width: 300px;
+  height: 340px;
+
+  display: flex;
+  justify-content: center;
+  position: absolute;
+
+  margin-left: 0em;
+
+  ${(props) =>
+    props.load
+      ? css`
+          animation: ${bringFromLeft} 1s;
+        `
+      : css`
+          animation: ${bringFromLeft} 1s;
+        `}
+`;
+
+export const CircleConten2 = styled(Card)<Test>`
+  width: 300px;
+  height: 340px;
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  margin-left: 0em;
 
   ${(props) =>
     props.load
@@ -61,8 +101,11 @@ export const FormContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  border:solid 1px;
+  border-radius:20px;
 
-  width: auto;
+  width: 40%;
   margin-top: 12%;
 
   text-align: center;
@@ -159,4 +202,54 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 
 export const StyledInput = styled(Input)`
   /* width: 300px; */
+`;
+
+export const Logo = styled.img`
+  height: 40px;
+  position: absolute;
+
+  opacity: 1;
+`;
+
+export const LogoContent = styled.div`
+  width: 10%;
+  height: 370px;
+
+
+  align-items: left;
+  justify-content: left;
+  position: relative;
+`;
+
+export const LogoOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  margin-left: auto;
+`;
+
+export const NewContainer = styled.div`
+  width: 100vw;
+  height: 87.9vh;
+  
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  padding: 18px;
+
+  animation: ${loadFromTransparent} 1.4s;
+`;
+
+export const LContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  align-itens: center;
+  align: center;
+  justify-content: left;
+
+  margin-left: 22em;
+  margin-top: 2em;
 `;

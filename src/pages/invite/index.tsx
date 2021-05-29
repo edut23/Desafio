@@ -22,14 +22,24 @@ import {
   FormContainer,
   StyledInput,
   ButtonsContainer,
-  BackButton
+  BackButton,
+  UserContainer,
+  P,
+  A,
 } from './styles';
 
 import Header from '../../components/Header';
 import Axios from 'axios';
+import { LogoOptions, Logo, LogoContent } from './styles';
+import seta from '../../assets/img/seta.png';
+import { useUsers } from '../../hooks/users';
 
 interface DataFormInfo {
   useremail: string;
+}
+
+interface Load{
+  teamid: string;
 }
 
 const Invite: React.FC = () => {
@@ -38,9 +48,21 @@ const Invite: React.FC = () => {
   const [isEnabled, setIsEnabled] = useState(true);
   const { user } = useAuth();
   const { team } = useTeam();
-  const { Invite } = useInvite();
+  const [membros, setMembros] = useState<any[]>([]);
 
   const formRef = useRef<FormHandles>(null);
+  
+  const carrega = useCallback(async () => {
+    console.log("ta ino", team.teamid)
+    await Axios.get(
+      `https://j1hjd787mc.execute-api.sa-east-1.amazonaws.com/prod/team?teamid=${team.teamid}`
+    )
+    .then(response => {console.dir(response.data.users, {depth: null}); setMembros(response.data.users)});
+  }, []);
+
+
+
+
 
   const handleSubmit = useCallback(async (data: DataFormInfo) => {
     setIsLogging(true);
@@ -75,7 +97,7 @@ const Invite: React.FC = () => {
       setIsLogging(false);
       setIsEnabled(true);
 
-      //window.location.href = '/main';
+      window.location.href = '/main';
     } catch (err) {
       setIsLogging(false);
       setIsEnabled(true);
@@ -93,6 +115,7 @@ const Invite: React.FC = () => {
   }
 
   useEffect(() => {
+    carrega();
     const script = document.createElement('script');
 
     script.src = '//code.jivosite.com/widget/AIh2Mhazzn';
@@ -108,11 +131,22 @@ const Invite: React.FC = () => {
     <PageGame>
       <Header />
       <script src="//code.jivosite.com/widget/AIh2Mhazzn" async />
+      <LogoContent><LogoOptions><Logo onClick={goBack} src={seta} alt="seta"/>
       {user &&<TContainer>
         <PageWrapper>
-        <BackButton onClick={goBack}>Voltar</BackButton>
         <FormContainer>
-          <CircleContent title="Logo do projeto" load={change} logo={chicoLogo}>
+          <CircleContent>
+            <UserContainer>
+              <P>Membros do time:</P>
+              <br/>
+              {membros.map((users, index) => 
+            <li key={index} list-style-type= "none">
+              <A>Nome: {JSON.stringify(users.fullname).replace(/"/g, '')}</A>
+              <A>Apelido: {JSON.stringify(users.nickname).replace(/"/g, '')}</A>
+              <A>Email: {JSON.stringify(users.email).replace(/"/g, '')}</A>
+              <br/>
+            </li>)}
+            </UserContainer>
             <br/>
               <Form ref={formRef} onSubmit={handleSubmit}>
                 <StyledInput
@@ -137,6 +171,7 @@ const Invite: React.FC = () => {
         </PageWrapper>
       </TContainer>}
       {!user && team && <TContainer>{window.location.href = '/'}</TContainer>}
+      </LogoOptions></LogoContent>
     </PageGame>
   );
 };

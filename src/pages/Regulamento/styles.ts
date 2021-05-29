@@ -82,6 +82,11 @@ export const StyledButton = styled(Button) <StyledButtonProps>`
   align-items: center;
   /* margin-top: 4%; */
   width: 40%;
+  position: fixed;
+  float: center;
+  top: 90%;
+  left:50%;
+  transform: translate(-50%, -50%);
 
   background: #fb7c1f;
   color: #fff;
@@ -98,4 +103,24 @@ export const StyledButton = styled(Button) <StyledButtonProps>`
     css`
       width: 100%;
     `}
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: fixed;
+  float: center;
+  top: 90%;
+  left:50%;
+  transform: translate(-50%, -50%);
+
+  a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    padding: 0 32px;
+  }
 `;

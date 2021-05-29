@@ -160,3 +160,92 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 export const StyledInput = styled(Input)`
   /* width: 300px; */
 `;
+
+export const Logo = styled.img`
+  height: 40px;
+
+  opacity: 1;
+`;
+
+export const LogoContent = styled.div`
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: left;
+  justify-content: left;
+`;
+
+export const LogoOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  margin-left: auto;
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    margin-right: 48px;
+    color: #fff;
+
+    transition: color 0.4s;
+
+    font-family: 'Poppins';
+    font-size: 18px;
+
+    &:hover {
+      cursor: pointer;
+      color: ${shade(0.4, '#bdbdbd')};
+    }
+  }
+`;
+
+export const UserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  background: rgba(255, 255, 255, 0.7);
+  border:solid 1px;
+  border-radius:20px;
+  list-style-type: none;
+  
+
+  width: 100%;
+  margin-top: 12%;
+  
+
+  text-align: left;
+
+  a {
+    font-family: 'Poppins';
+    text-decoration: none;
+    color: #fff;
+
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${shade(0.4, '#fff')};
+    }
+  }
+`;
+
+export const li = styled.div`
+  list-style-type: none;
+`;
+
+export const P = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 9em;
+
+  font-size: 24px;
+`;
+
+export const A = styled.div`
+  margin-left: 5px;
+
+  font-size: 18px;
+`;
